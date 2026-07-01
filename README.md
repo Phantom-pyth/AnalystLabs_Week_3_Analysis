@@ -89,14 +89,14 @@ A dedicated section critically evaluates **which** of these correlations reflect
    pip install pandas numpy scipy matplotlib seaborn
    ```
 2. Open `Titanic_Statistical_Analysis.ipynb` in Jupyter.
-3. Run all cells in order — hypothesis test results and visualizations render inline.
+3. Run all cells in order hypothesis test results and visualizations render inline.
 
 ---
 
 ## 👤 Author
 
 **Nathaniel Akomolafe**
-Data Analytics Intern — Decode Lab / AnalystLab Africa
+Data Science Intern AnalystLab Africa
 
 ---
 
