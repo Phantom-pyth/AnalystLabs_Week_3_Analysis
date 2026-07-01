@@ -1,20 +1,20 @@
-# Housing Prices — Statistical Analysis
+# Titanic Survival — Statistical Analysis
 
-Statistical exploration of residential housing data, applying descriptive statistics, probability distributions, and formal hypothesis testing to identify which property characteristics are genuinely associated with sale price.
+Statistical deep-dive into the Titanic passenger dataset, examining what factors were actually associated with survival and which of those associations hold up to scrutiny as genuine causal relationships versus confounded correlations.
 
-Completed as part of the Decode Lab / AnalystLab Africa data analytics internship program.
+Completed as part of the AnalystLab Africa data analytics internship program.
 
 ---
 
 ## 📋 Project Overview
 
-This project applies a rigorous statistical lens to a housing dataset, moving past simple "bigger house, higher price" intuition to test specific hypotheses about *which* features matter, *how strongly*, and whether observed relationships are likely to be meaningful versus coincidental.
+This project moves beyond descriptive summaries into formal hypothesis testing, using the Titanic dataset to answer a central question: **which passenger characteristics were statistically associated with survival, and why?**
 
 The analysis combines:
-- Descriptive statistics (central tendency, spread, skewness)
-- Probability distribution fitting on price and key continuous variables
-- Formal hypothesis testing (t-tests, ANOVA, chi-square where applicable)
-- Correlation analysis between numerical features and price
+- Descriptive statistics & probability distributions
+- Formal hypothesis testing (t-tests, chi-square tests)
+- Correlation analysis (point-biserial & Pearson)
+- A critical correlation-vs-causation discussion grounded in the historical record
 
 ---
 
@@ -22,9 +22,9 @@ The analysis combines:
 
 | Field | Description |
 |---|---|
-| **Source** | Housing dataset (residential property records) |
-| **Key variables** | `Price`, `Area/SqFt`, `Bedrooms`, `Bathrooms`, `Location`, `Age of Property` |
-| **Cleaned dataset** | `Housing_cleaned` (missing values handled, categorical encodings applied) |
+| **Source** | Titanic passenger manifest dataset |
+| **Key variables** | `Survived`, `Sex`, `Pclass`, `Fare`, `Embarked`, `Age` |
+| **Cleaned dataset** | `Titanic_cleaned` (missing values handled, `Sex_enc` encoded) |
 
 ---
 
@@ -32,12 +32,12 @@ The analysis combines:
 
 | # | Test | Variables | Type |
 |---|---|---|---|
-| 1 | Descriptive statistics & distribution check | Price | Normality / skewness assessment |
-| 2 | Independent samples t-test | Price by binary feature (e.g. has garage/basement) | Two-sample mean comparison |
-| 3 | One-way ANOVA | Price across categorical groups (e.g. Location/Neighborhood) | Multi-group mean comparison |
-| 4 | Pearson correlation | Area/SqFt vs Price | Correlation |
-| 5 | Pearson correlation | Bedrooms / Bathrooms vs Price | Correlation |
-| 6 | Chi-square test of independence | Categorical feature vs Price bracket | Categorical association |
+| 1 | Independent samples t-test (Welch's) | Fare vs Survived | Two-sample mean comparison |
+| 2 | Chi-square test of independence | Sex vs Survived | Categorical association |
+| 3 | Chi-square test of independence | Pclass vs Survived | Categorical association |
+| 4 | Point-biserial correlation | Sex_enc vs Survived | Correlation |
+| 5 | Point-biserial correlation | Fare vs Survived | Correlation |
+| 6 | Pearson/ordinal correlation | Pclass vs Survived | Correlation |
 
 All tests use **α = 0.05** as the significance threshold.
 
@@ -45,31 +45,38 @@ All tests use **α = 0.05** as the significance threshold.
 
 ## 📊 Key Findings
 
-- **Price is right-skewed**, consistent with most real-world housing markets — a small number of high-value properties pull the mean above the median.
-- **Area/SqFt shows the strongest correlation with Price** among numerical features tested.
-- **Location/Neighborhood produces statistically significant differences in mean price** (ANOVA, p < 0.05), confirming geography is a meaningful price driver.
-- Feature-by-feature significance results are summarized in a consolidated results table within the notebook for quick reference.
+- **Fare differs significantly between survivors and non-survivors** (Welch's t-test, p < 0.001) — survivors paid notably higher fares on average.
+- **Sex and Survival are strongly associated** (χ², p < 0.001) — being female was strongly linked to higher survival odds.
+- **Passenger Class and Survival are strongly associated** (χ², p < 0.001) — 1st class passengers survived at much higher rates.
+- **Correlation strength ranking:** Sex (r ≈ 0.54) > Fare (r ≈ 0.26) > Embarked (r ≈ 0.11).
 
-### Practical Interpretation
-As with any observational housing data, statistically significant association does **not** automatically imply that a feature *causes* price changes in isolation — features like size, location, and amenities are often correlated with each other (e.g. larger homes tend to also be newer or in particular neighborhoods). Where relevant, the notebook flags features that may be acting as proxies for an underlying driver rather than independent causes.
+### Correlation vs Causation
+A dedicated section critically evaluates **which** of these correlations reflect genuine causal mechanisms:
+
+| Variable | Correlated with Survival? | Causal? | Why |
+|---|---|---|---|
+| **Sex** | Yes (r=0.54) | ✅ Yes | Documented "women and children first" evacuation protocol |
+| **Fare** | Yes (r=0.26) | ❌ No | Proxy for Class/cabin location — wealth → class → lifeboat proximity → survival |
+| **Embarked** | Yes (r≈0.11) | ❌ No | Confounded — Cherbourg simply had more 1st class passengers |
+
+**Bottom line:** Sex → Survival is the one relationship with genuine causal support. Fare and Embarked are correlated with survival only because they're entangled with Passenger Class — the true structural driver.
 
 ---
 
 ## 🛠️ Tech Stack
 
 - **Python** — Pandas, NumPy
-- **SciPy** (`scipy.stats`) — t-tests, ANOVA, chi-square, distribution fitting
-- **statsmodels** — supplementary regression/ANOVA diagnostics
-- **Matplotlib / Seaborn** — distribution plots, boxplots, correlation heatmaps
+- **SciPy** (`scipy.stats`) — t-tests, chi-square tests, point-biserial correlation
+- **Matplotlib / Seaborn** — boxplots, grouped bar charts, survival-rate visualizations
 
 ---
 
 ## 📁 Deliverables
 
 ```
-├── Housing_Statistical_Analysis.ipynb   # Full notebook (tests + visualizations)
-├── Housing_cleaned.csv                  # Cleaned dataset
-├── Housing_Analysis_Report.docx         # Word report summary
+├── Titanic_Statistical_Analysis.ipynb   # Full notebook (tests + visualizations)
+├── Titanic_cleaned.csv                  # Cleaned dataset
+├── Titanic_Analysis_Report.docx         # Word report summary
 └── README.md                            # This file
 ```
 
@@ -79,9 +86,9 @@ As with any observational housing data, statistically significant association do
 
 1. Install dependencies:
    ```bash
-   pip install pandas numpy scipy statsmodels matplotlib seaborn
+   pip install pandas numpy scipy matplotlib seaborn
    ```
-2. Open `Housing_Statistical_Analysis.ipynb` in Jupyter.
+2. Open `Titanic_Statistical_Analysis.ipynb` in Jupyter.
 3. Run all cells in order — hypothesis test results and visualizations render inline.
 
 ---
