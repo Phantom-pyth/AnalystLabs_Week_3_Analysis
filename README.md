@@ -1,4 +1,4 @@
-# Titanic Survival — Statistical Analysis
+# Titanic Survival  Statistical Analysis
 
 Statistical deep-dive into the Titanic passenger dataset, examining what factors were actually associated with survival and which of those associations hold up to scrutiny as genuine causal relationships versus confounded correlations.
 
