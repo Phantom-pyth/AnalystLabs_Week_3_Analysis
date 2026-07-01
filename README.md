@@ -2,7 +2,7 @@
 
 Statistical deep-dive into the Titanic passenger dataset, examining what factors were actually associated with survival and which of those associations hold up to scrutiny as genuine causal relationships versus confounded correlations.
 
-Completed as part of the AnalystLab Africa data analytics internship program.
+Completed as part of the AnalystLab Africa data science internship program.
 
 ---
 
