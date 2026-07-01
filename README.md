@@ -45,9 +45,9 @@ All tests use **α = 0.05** as the significance threshold.
 
 ## 📊 Key Findings
 
-- **Fare differs significantly between survivors and non-survivors** (Welch's t-test, p < 0.001) — survivors paid notably higher fares on average.
-- **Sex and Survival are strongly associated** (χ², p < 0.001) — being female was strongly linked to higher survival odds.
-- **Passenger Class and Survival are strongly associated** (χ², p < 0.001) — 1st class passengers survived at much higher rates.
+- **Fare differs significantly between survivors and non-survivors** (Welch's t-test, p < 0.001)  survivors paid notably higher fares on average.
+- **Sex and Survival are strongly associated** (χ², p < 0.001)  being female was strongly linked to higher survival odds.
+- **Passenger Class and Survival are strongly associated** (χ², p < 0.001) 1st class passengers survived at much higher rates.
 - **Correlation strength ranking:** Sex (r ≈ 0.54) > Fare (r ≈ 0.26) > Embarked (r ≈ 0.11).
 
 ### Correlation vs Causation
@@ -59,15 +59,15 @@ A dedicated section critically evaluates **which** of these correlations reflect
 | **Fare** | Yes (r=0.26) | ❌ No | Proxy for Class/cabin location — wealth → class → lifeboat proximity → survival |
 | **Embarked** | Yes (r≈0.11) | ❌ No | Confounded — Cherbourg simply had more 1st class passengers |
 
-**Bottom line:** Sex → Survival is the one relationship with genuine causal support. Fare and Embarked are correlated with survival only because they're entangled with Passenger Class — the true structural driver.
+**Bottom line:** Sex → Survival is the one relationship with genuine causal support. Fare and Embarked are correlated with survival only because they're entangled with Passenger Class the true structural driver.
 
 ---
 
 ## 🛠️ Tech Stack
 
 - **Python** — Pandas, NumPy
-- **SciPy** (`scipy.stats`) — t-tests, chi-square tests, point-biserial correlation
-- **Matplotlib / Seaborn** — boxplots, grouped bar charts, survival-rate visualizations
+- **SciPy** (`scipy.stats`)  t-tests, chi-square tests, point-biserial correlation
+- **Matplotlib / Seaborn**  boxplots, grouped bar charts, survival-rate visualizations
 
 ---
 
